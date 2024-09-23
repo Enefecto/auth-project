@@ -1,0 +1,20 @@
+---
+import { siteConfig } from "../siteConfig";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{siteConfig.title}</title>
+  </head>
+  <body>
+    <main
+      class="bg-slate-900 w-screen h-screen text-white flex flex-col justify-start items-center"
+    >
+      <slot />
+    </main>
+  </body>
+</html>
