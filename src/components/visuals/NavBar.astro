@@ -1,0 +1,32 @@
+---
+import { siteConfig } from "siteConfig";
+---
+
+<nav
+  class="flex flex-col sm:flex-row justify-between px-4 sm:px-20 py-5 sm:py-10 items-center bg-gray-800"
+>
+  <h1 class="text-lg sm:text-xl text-teal-400 font-bold mb-4 sm:mb-0">
+    {siteConfig.title}
+  </h1>
+
+  <div class="flex items-center">
+    <ul
+      class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6"
+    >
+      <a href="/">
+        <li
+          class="font-semibold text-gray-300 hover:text-teal-300 transition-colors duration-200"
+        >
+          Home
+        </li>
+      </a>
+      <a href="/login">
+        <li
+          class="font-semibold text-gray-300 hover:text-teal-300 transition-colors duration-200"
+        >
+          Iniciar Sesión
+        </li>
+      </a>
+    </ul>
+  </div>
+</nav>
