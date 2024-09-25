@@ -1,5 +1,6 @@
 ---
 import MainLayout from "@layouts/MainLayout.astro";
+import { date } from "astro:schema";
 ---
 
 <MainLayout>
@@ -21,7 +22,7 @@ import MainLayout from "@layouts/MainLayout.astro";
         class="flex-col flex self-center sm:max-w-5xl xl:max-w-2xl z-10 lg:px-10 max-w-full"
       >
         <div class="self-start hidden lg:flex flex-col text-white max-w-full">
-          <h1 class="mb-3 font-bold text-5xl">Hi! Welcome Back Aji</h1>
+          <h1 class="mb-3 font-bold text-5xl">Hi! Welcome Auth Astro</h1>
           <p class="pr-3 text-lg">
             Lorem ipsum is placeholder text commonly used in the graphic, print,
             and publishing industries for previewing layouts and visual mockups.
@@ -34,8 +35,10 @@ import MainLayout from "@layouts/MainLayout.astro";
           class="p-12 bg-white mx-auto rounded-2xl w-full max-w-md overflow-hidden"
         >
           <div class="mb-4 text-center">
-            <h3 class="font-semibold text-2xl text-gray-800">Sign In</h3>
-            <p class="text-gray-500">Please sign in to your account.</p>
+            <h3 class="font-semibold text-2xl text-gray-800">
+              Inicio de sesión
+            </h3>
+            <p class="text-gray-500">Auth Astro</p>
           </div>
 
           <form class="space-y-5 text-black">
@@ -46,19 +49,19 @@ import MainLayout from "@layouts/MainLayout.astro";
               <input
                 class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
                 type="email"
-                placeholder="mail@gmail.com"
+                placeholder="Introdusca su gmail"
               />
             </div>
 
             <div class="space-y-2">
               <label
                 class="mb-5 text-sm font-medium text-gray-700 tracking-wide"
-                >Password</label
+                >Contraseña</label
               >
               <input
                 class="w-full content-center text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
                 type="password"
-                placeholder="Enter your password"
+                placeholder="Introdusca su contraseña"
               />
             </div>
 
@@ -74,13 +77,13 @@ import MainLayout from "@layouts/MainLayout.astro";
                   for="remember_me"
                   class="ml-2 block text-sm text-gray-800"
                 >
-                  Remember me
+                  Recordarme
                 </label>
               </div>
 
               <div class="text-sm">
-                <a href="#" class="text-green-400 hover:text-green-500"
-                  >Forgot your password?</a
+                <a href="/signup" class="text-green-400 hover:text-green-500"
+                  >Crear cuenta</a
                 >
               </div>
             </div>
@@ -90,14 +93,14 @@ import MainLayout from "@layouts/MainLayout.astro";
                 type="submit"
                 class="w-full flex justify-center bg-green-400 hover:bg-green-500 text-gray-100 p-3 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500"
               >
-                Sign in
+                Iniciar Sesión
               </button>
             </div>
           </form>
 
           <div class="pt-5 text-center text-gray-400 text-xs">
             <span>
-              Copyright © 2021-2022
+              Copyright © 2021-{new Date().getFullYear()}
               <a
                 href="https://codepen.io/uidesignhub"
                 target="_blank"
