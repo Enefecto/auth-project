@@ -1,6 +1,7 @@
 ---
 import NavBar from "components/visuals/NavBar.astro";
 import { siteConfig } from "../siteConfig";
+import { ViewTransitions } from "astro:transitions";
 ---
 
 <html lang="es">
@@ -23,12 +24,14 @@ import { siteConfig } from "../siteConfig";
     <!-- Twitter Card Tags -->
     <meta name="twitter:title" content={siteConfig.title} />
     <meta name="twitter:description" content={siteConfig.description} />
+
+    <ViewTransitions />
   </head>
 
   <body class="flex flex-col min-h-screen">
     <NavBar />
     <main
-      class="bg-slate-900 w-full flex-grow text-white flex flex-col justify-center items-center h-full  p-0 m-0"
+      class="bg-slate-900 w-full flex-grow text-white flex flex-col justify-center items-center h-full p-0 m-0"
     >
       <slot />
     </main>
