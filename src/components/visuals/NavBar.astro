@@ -27,6 +27,39 @@ import { siteConfig } from "siteConfig";
           Iniciar Sesión
         </li>
       </a>
+      <a href="/protected">
+        <li
+          class="font-semibold text-gray-300 hover:text-teal-300 transition-colors duration-200"
+        >
+          Protegido
+        </li>
+      </a>
+      <button
+        class="flex items-center justify-center gap-1 text-white hover:text-teal-300 cursor-pointer"
+      >
+        Salir
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="white"
+          class="size-6 icon"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"
+          ></path>
+        </svg>
+      </button>
     </ul>
   </div>
 </nav>
+
+<!-- Estilos para cambiar el svg del botton de logout -->
+<style>
+  button:hover svg {
+    stroke: #38b2ac; /* Cambia el color del icono al pasar el cursor */
+  }
+</style>
