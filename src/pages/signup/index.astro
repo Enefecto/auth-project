@@ -1,5 +1,8 @@
 ---
 import MainLayout from "@layouts/MainLayout.astro";
+
+const email = Astro.cookies.get("email")?.value ?? "";
+const remenberMe = !!email;
 ---
 
 <MainLayout>
@@ -12,7 +15,7 @@ import MainLayout from "@layouts/MainLayout.astro";
         <p class="text-gray-500">Auth Astro</p>
       </div>
 
-      <form class="space-y-2 text-black ">
+      <form class="space-y-2 text-black">
         <div class="flex justify-around items-center gap-2">
           <div class="space-y-2">
             <label class="text-sm font-medium text-gray-700 tracking-wide"
@@ -22,6 +25,7 @@ import MainLayout from "@layouts/MainLayout.astro";
               class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
               type="text"
               placeholder="Nombre"
+              name="name"
             />
           </div>
 
@@ -33,6 +37,7 @@ import MainLayout from "@layouts/MainLayout.astro";
               class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
               type="text"
               placeholder="Nombre de usuario"
+              name="username"
             />
           </div>
         </div>
@@ -45,6 +50,8 @@ import MainLayout from "@layouts/MainLayout.astro";
             class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
             type="email"
             placeholder="Introdusca su gmail"
+            name="email"
+            value={email}
           />
         </div>
 
@@ -56,6 +63,7 @@ import MainLayout from "@layouts/MainLayout.astro";
             class="w-full content-center text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
             type="password"
             placeholder="Introdusca su contraseña"
+            name="password"
           />
         </div>
 
@@ -70,10 +78,27 @@ import MainLayout from "@layouts/MainLayout.astro";
           />
         </div>
 
+        <div class="flex items-center justify-start my-2">
+          <input
+            id="remember_me"
+            name="remember_me"
+            type="checkbox"
+            class="cursor-pointer h-4 w-4 bg-blue-500 focus:ring-blue-400 border-gray-300 rounded"
+            checked={remenberMe}
+          />
+          <label
+            for="remember_me"
+            class="cursor-pointer ml-2 block text-sm text-gray-700"
+          >
+            Recordarme
+          </label>
+        </div>
+
         <div>
           <button
+            id="btn-submit"
             type="submit"
-            class="w-full flex justify-center bg-green-400 hover:bg-green-500 text-gray-100 p-3 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500"
+            class="disabled:bg-gray-300 w-full flex justify-center bg-green-400 hover:bg-green-500 text-gray-100 p-3 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-200"
           >
             Crear cuenta
           </button>
@@ -93,3 +118,28 @@ import MainLayout from "@layouts/MainLayout.astro";
     </div>
   </div>
 </MainLayout>
+
+<script>
+  import { actions } from "astro:actions";
+
+  document.addEventListener("astro:page-load", () => {
+    const form = document.querySelector("form") as HTMLFormElement;
+    const btnSubmit = document.querySelector(
+      "#btn-submit"
+    ) as HTMLButtonElement;
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      btnSubmit.setAttribute("disable", "disabled");
+
+      const formData = new FormData(form);
+
+      const { data, error } = await actions.registerUser(formData);
+
+      if (error) {
+        console.log(error.message);
+      }
+      btnSubmit.removeAttribute("disable");
+    });
+  });
+</script>
