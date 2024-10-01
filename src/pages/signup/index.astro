@@ -121,6 +121,7 @@ const remenberMe = !!email;
 
 <script>
   import { actions } from "astro:actions";
+  import Swal from "sweetalert2";
 
   document.addEventListener("astro:page-load", () => {
     const form = document.querySelector("form") as HTMLFormElement;
@@ -132,14 +133,37 @@ const remenberMe = !!email;
       e.preventDefault();
       btnSubmit.setAttribute("disable", "disabled");
 
+      // Obtener los valores del formulario
       const formData = new FormData(form);
+      const password = formData.get("password") as string;
 
+      // Validación de la contraseña
+      if (password.length < 6) {
+        Swal.fire({
+          icon: "error",
+          title: "Contraseña demasiado corta",
+          text: "La contraseña debe tener al menos 6 caracteres.",
+        });
+        btnSubmit.removeAttribute("disable");
+        return; // Detener el envío del formulario
+      }
+
+      // Si la validación pasa, proceder a registrar el usuario
       const { data, error } = await actions.registerUser(formData);
 
       if (error) {
-        console.log(error.message);
+        Swal.fire({
+          icon: "error",
+          title: "Error al crear el usuario",
+          text: error.message,
+        });
+      } else {
+        Swal.fire({
+          icon: "success",
+          title: "Usuario creado correctamente",
+        });
+        btnSubmit.removeAttribute("disable");
       }
-      btnSubmit.removeAttribute("disable");
     });
   });
 </script>
