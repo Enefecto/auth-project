@@ -70,8 +70,8 @@ import { siteConfig } from "siteConfig";
 
   const logoutElement = document.querySelector("#logout") as HTMLElement;
 
-  logoutElement?.addEventListener("click", async () => {
-    await actions.logout();
+  logoutElement?.addEventListener("click", () => {
+    actions.logout();
     window.location.href = "/";
   });
 </script>

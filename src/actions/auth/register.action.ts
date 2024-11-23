@@ -1,6 +1,11 @@
 import { defineAction } from "astro:actions";
 import { z } from "astro:schema";
-import { createUserWithEmailAndPassword, type AuthError } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+  type AuthError,
+} from "firebase/auth";
 import { firebase } from "../../firebase/config";
 
 export const registerUser = defineAction({
@@ -36,6 +41,14 @@ export const registerUser = defineAction({
         email,
         password
       );
+
+      updateProfile(firebase.auth.currentUser!, {
+        displayName: name,
+      });
+
+      sendEmailVerification(firebase.auth.currentUser!, {
+        url: "http://localhost:4321/protected",
+      });
 
       // Extrae sólo la información serializable
       const user = userCredential.user;

@@ -74,7 +74,7 @@ const remenberMe = !!email;
           <input
             class="w-full content-center text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
             type="password"
-            name="password"
+            name="password2"
             placeholder="Introdusca su contraseña"
           />
         </div>
@@ -137,9 +137,10 @@ const remenberMe = !!email;
       // Obtener los valores del formulario
       const formData = new FormData(form);
       const password = formData.get("password") as string;
+      const password2 = formData.get("password2") as string;
 
-      // Validación de la contraseña
-      if (password.length < 6) {
+      // Validación de largo de la contraseña
+      if (password.length < 6 || password2.length < 6) {
         Swal.fire({
           icon: "error",
           title: "Contraseña demasiado corta",
@@ -147,6 +148,16 @@ const remenberMe = !!email;
         });
         btnSubmit.removeAttribute("disabled");
         return; // Detener el envío del formulario
+      }
+
+      // Validación de coincidencia de contraseñas
+      if (password !== password2) {
+        Swal.fire({
+          icon: "error",
+          title: "Las contraseñas no coinciden",
+        });
+        btnSubmit.removeAttribute("disabled");
+        return;
       }
 
       // Si la validación pasa, proceder a registrar el usuario
@@ -162,7 +173,12 @@ const remenberMe = !!email;
         Swal.fire({
           icon: "success",
           title: "Usuario creado correctamente",
+          confirmButtonText: "Aceptar", // Personaliza el texto del botón
+        }).then(() => {
+          // Redirigir al usuario después de confirmar
+          window.location.replace("/signin");
         });
+
         // Limpiar los campos del formulario
         form.reset();
         btnSubmit.removeAttribute("disabled");
