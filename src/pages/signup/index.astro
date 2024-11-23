@@ -162,6 +162,8 @@ const remenberMe = !!email;
           icon: "success",
           title: "Usuario creado correctamente",
         });
+        // Limpiar los campos del formulario
+        form.reset();
         btnSubmit.removeAttribute("disable");
       }
     });
