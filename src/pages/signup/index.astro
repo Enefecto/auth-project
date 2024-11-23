@@ -74,6 +74,7 @@ const remenberMe = !!email;
           <input
             class="w-full content-center text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
             type="password"
+            name="password"
             placeholder="Introdusca su contraseña"
           />
         </div>
@@ -131,7 +132,7 @@ const remenberMe = !!email;
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      btnSubmit.setAttribute("disable", "disabled");
+      btnSubmit.setAttribute("disabled", "disabled");
 
       // Obtener los valores del formulario
       const formData = new FormData(form);
@@ -144,7 +145,7 @@ const remenberMe = !!email;
           title: "Contraseña demasiado corta",
           text: "La contraseña debe tener al menos 6 caracteres.",
         });
-        btnSubmit.removeAttribute("disable");
+        btnSubmit.removeAttribute("disabled");
         return; // Detener el envío del formulario
       }
 
@@ -164,7 +165,7 @@ const remenberMe = !!email;
         });
         // Limpiar los campos del formulario
         form.reset();
-        btnSubmit.removeAttribute("disable");
+        btnSubmit.removeAttribute("disabled");
       }
     });
   });

@@ -68,10 +68,10 @@ import { siteConfig } from "siteConfig";
 <script>
   import { actions } from "astro:actions";
 
-  const logoutElement = document.querySelector("#logout") as HTMLButtonElement;
+  const logoutElement = document.querySelector("#logout") as HTMLElement;
 
-  logoutElement?.addEventListener("click", () => {
-    actions.logout();
+  logoutElement?.addEventListener("click", async () => {
+    await actions.logout();
     window.location.href = "/";
   });
 </script>

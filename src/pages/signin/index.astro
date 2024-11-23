@@ -1,6 +1,8 @@
 ---
 import MainLayout from "@layouts/MainLayout.astro";
-import { date } from "astro:schema";
+
+const email = Astro.cookies.get("email")?.value ?? "";
+const remenberMe = !!email;
 ---
 
 <MainLayout>
@@ -49,7 +51,9 @@ import { date } from "astro:schema";
               <input
                 class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
                 type="email"
+                name="email"
                 placeholder="Introdusca su gmail"
+                value={email}
               />
             </div>
 
@@ -61,6 +65,7 @@ import { date } from "astro:schema";
               <input
                 class="w-full content-center text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
                 type="password"
+                name="password"
                 placeholder="Introdusca su contraseña"
               />
             </div>
@@ -71,6 +76,7 @@ import { date } from "astro:schema";
                   id="remember_me"
                   name="remember_me"
                   type="checkbox"
+                  checked={remenberMe}
                   class="h-4 w-4 bg-blue-500 focus:ring-blue-400 border-gray-300 rounded"
                 />
                 <label
@@ -91,7 +97,8 @@ import { date } from "astro:schema";
             <div>
               <button
                 type="submit"
-                class="w-full flex justify-center bg-green-400 hover:bg-green-500 text-gray-100 p-3 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500"
+                class="disabled:bg-gray-300 w-full flex justify-center bg-green-400 hover:bg-green-500 text-gray-100 p-3 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500"
+                id="submit"
               >
                 Iniciar Sesión
               </button>
@@ -113,3 +120,46 @@ import { date } from "astro:schema";
     </div>
   </div>
 </MainLayout>
+
+<script>
+  import { actions } from "astro:actions";
+  import Swal from "sweetalert2";
+
+  const form = document.querySelector("form") as HTMLFormElement;
+  const btnSubmit = document.querySelector("#submit") as HTMLElement;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    btnSubmit.setAttribute("disabled", "disabled");
+
+    // Obtener los valores del formulario
+    const formData = new FormData(form);
+    const password = formData.get("password") as string;
+
+    // Validación de la contraseña
+    if (password.length < 6) {
+      Swal.fire({
+        icon: "error",
+        title: "Contraseña demasiado corta",
+        text: "La contraseña debe tener al menos 6 caracteres.",
+      });
+      btnSubmit.removeAttribute("disabled");
+      return; // Detener el envío del formulario
+    }
+
+    const { error } = await actions.login(formData);
+
+    if (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Credenciales incorrectas",
+        text: error.message,
+      });
+      btnSubmit.removeAttribute("disabled");
+      return;
+    }
+
+    window.location.replace("/protected");
+    btnSubmit.removeAttribute("disabled");
+  });
+</script>
